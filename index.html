@@ -16,13 +16,15 @@
   <main class="main container">
     <button class="btn btn-add" id="addBookBtn">+ Add book</button>
     <div class="books-grid" id="booksGrid"></div>
+    
+    
     <div id="overlay"></div>
     <div id="form-popup">
       <form class="add-book-form">
         <h3>Book Card</h3>
         <input type="text" id="title" placeholder="Title" required maxlength="100">
-        <input type="text" id="author" placeholder="Author" required minlength="3" maxlength="100">
-        <input type="number" id="pages" placeholder="Pages"required maxlength="1000">    
+        <input type="text" id="author" placeholder="Author" required maxlength="100">
+        <input type="number" id="pages" placeholder="Pages"required max="10000">    
         <div class="book-status">
           <label for ="read-status">Read?</label>
           <input type="checkbox" id="read-status">
