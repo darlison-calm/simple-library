@@ -42,12 +42,13 @@ function displayBook(book, index) {
  
   const title = document.createElement("p");
   title.textContent = `"${book.title}"`
+  title.classList.add("book-title")
   
   const author = document.createElement("p");
-  author.textContent = book['author'];
+  author.textContent = `Author: ${book.author}`
   
   const pages = document.createElement("p");
-  pages.textContent = `${book.pages} pages`;
+  pages.textContent = `Pages: ${book.pages}`;
   
   const readBtn = document.createElement("button");
   readBtn.textContent = book.read ? 'Read ✔' : 'Not read';

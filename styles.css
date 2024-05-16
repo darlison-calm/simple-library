@@ -110,6 +110,10 @@ header {
   background-color:#dbb474;
 }
 
+.book-card .book-title{
+  font-size: 1.58em;
+}
+
 
 .button-group {
   display: flex;
