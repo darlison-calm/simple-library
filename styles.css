@@ -113,7 +113,8 @@ header {
 
 .button-group {
   display: flex;
-  gap: 20px;
   flex-direction: column;
+  gap: 20px;
 }
+
 

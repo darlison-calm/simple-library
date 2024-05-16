@@ -27,34 +27,37 @@ function closeForm(){
   formPopup.style.display = "none";
 }
 
-// Open form after clicking the add book button
 addBookBtn.addEventListener("click" , openForm);
 
 // Close form after clicking outside the form
 window.addEventListener('mouseup' , (e) => !formPopup.contains(e.target) && closeForm());
 
-// Display book on the page
-function displayBook(book) {
+function displayBook(book, index) {
   const bookCard = document.createElement("div");
-  const title = document.createElement("p");
-  const author = document.createElement("p");
-  const pages = document.createElement("p");
-  const readBtn = document.createElement("button");
-  const btnGroup = document.createElement("div");
-  const removeBtn = document.createElement("button");
-
-  title.textContent = `"${book.title}"`
-  author.textContent = book['author'];
-  pages.textContent = `${book.pages} pages`;
-  removeBtn.textContent = 'Remove';
-
-  readBtn.textContent = book.read ? 'Read ✔' : 'Not read';
-
   bookCard.classList.add("book-card");
-  btnGroup.classList.add("button-group");
-  removeBtn.classList.add("btn");
+  bookCard.setAttribute('data-index', index);
+  
+  const title = document.createElement("p");
+  title.textContent = `"${book.title}"`
+  
+  const author = document.createElement("p");
+  author.textContent = book['author'];
+  
+  const pages = document.createElement("p");
+  pages.textContent = `${book.pages} pages`;
+  
+  const readBtn = document.createElement("button");
+  readBtn.textContent = book.read ? 'Read ✔' : 'Not read';
   readBtn.classList.add("btn");
-
+  
+  const btnGroup = document.createElement("div");
+  btnGroup.classList.add("button-group");
+  
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = 'Remove';
+  removeBtn.classList.add("btn");
+  
+  
   bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(pages);
@@ -64,6 +67,13 @@ function displayBook(book) {
   btnGroup.appendChild(removeBtn); 
   
   booksContainer.appendChild(bookCard);
+  
+  // TO DO - FIX 
+  removeBtn.setAttribute('data-index', index);
+  removeBtn.addEventListener('click' , () =>{
+    const position = Number(removeBtn.dataset.index)
+      removeBook(position)
+  })
 }
 
 
@@ -87,8 +97,16 @@ function getBookFromInput() {
 
 function displayLibrary(){
   booksContainer.innerHTML = '';
-  myLibrary.forEach((book) => displayBook(book));
+  myLibrary.forEach(function (book,index){ 
+    displayBook(book,index)
+  });
+
 };
+
+function removeBook (index) {
+  myLibrary.splice(index, 1)
+  displayLibrary()
+}
 
 displayLibrary()
 
