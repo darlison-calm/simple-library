@@ -32,7 +32,6 @@ addBookBtn.addEventListener("click" , openForm);
 // Close form after clicking outside the form
 window.addEventListener('mouseup' , (e) => !formPopup.contains(e.target) && closeForm());
 
-
 function displayBook(book, index) {
   const bookCard = document.createElement("div");
   bookCard.classList.add("book-card");
@@ -69,9 +68,8 @@ function displayBook(book, index) {
   
   booksContainer.appendChild(bookCard);
 
-  
   removeBtn.addEventListener('click' , (e) => {
-    let pos = Number(e.target.dataset.position);
+    const pos = Number(e.target.dataset.position);
     removeBook(pos);
   })
 }
