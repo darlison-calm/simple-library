@@ -5,6 +5,10 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+
+  this.toggleRead = function(){
+    this.read = !this.read
+  }
 }
 
 function addBookToLibrary(book) {
@@ -48,7 +52,7 @@ function displayBook(book, index) {
   const readBtn = document.createElement("button");
   readBtn.textContent = book.read ? 'Read ✔' : 'Not read';
   readBtn.classList.add("btn");
-  
+
   const btnGroup = document.createElement("div");
   btnGroup.classList.add("button-group");
   
@@ -72,8 +76,12 @@ function displayBook(book, index) {
     const pos = Number(e.target.dataset.position);
     removeBook(pos);
   })
-}
 
+  readBtn.addEventListener('click' , function(){
+    book.toggleRead()
+    readBtn.textContent = book.read ? 'Read ✔' : 'Not read';
+  })
+}
 
 userInputBook.addEventListener("submit", (e) =>{
   e.preventDefault();
@@ -83,8 +91,6 @@ userInputBook.addEventListener("submit", (e) =>{
   userInputBook.reset();
   closeForm()
 })
-
-
 
 function getBookFromInput() {
   const title = document.getElementById('title').value;
