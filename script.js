@@ -32,11 +32,11 @@ addBookBtn.addEventListener("click" , openForm);
 // Close form after clicking outside the form
 window.addEventListener('mouseup' , (e) => !formPopup.contains(e.target) && closeForm());
 
+
 function displayBook(book, index) {
   const bookCard = document.createElement("div");
   bookCard.classList.add("book-card");
-  bookCard.setAttribute('data-index', index);
-  
+ 
   const title = document.createElement("p");
   title.textContent = `"${book.title}"`
   
@@ -56,7 +56,8 @@ function displayBook(book, index) {
   const removeBtn = document.createElement("button");
   removeBtn.textContent = 'Remove';
   removeBtn.classList.add("btn");
-  
+  removeBtn.classList.add("remove")
+  removeBtn.setAttribute("data-position", index)
   
   bookCard.appendChild(title);
   bookCard.appendChild(author);
@@ -67,12 +68,11 @@ function displayBook(book, index) {
   btnGroup.appendChild(removeBtn); 
   
   booksContainer.appendChild(bookCard);
+
   
-  // TO DO - FIX 
-  removeBtn.setAttribute('data-index', index);
-  removeBtn.addEventListener('click' , () =>{
-    const position = Number(removeBtn.dataset.index)
-      removeBook(position)
+  removeBtn.addEventListener('click' , (e) => {
+    let pos = Number(e.target.dataset.position);
+    removeBook(pos);
   })
 }
 
@@ -81,10 +81,12 @@ userInputBook.addEventListener("submit", (e) =>{
   e.preventDefault();
   const book = getBookFromInput()
   addBookToLibrary(book)
-  displayBook(book)
+  displayLibrary()
   userInputBook.reset();
   closeForm()
 })
+
+
 
 function getBookFromInput() {
   const title = document.getElementById('title').value;
@@ -95,12 +97,13 @@ function getBookFromInput() {
   return new Book(title, author, pages, read)
 }
 
+// Render the entire library of books
 function displayLibrary(){
   booksContainer.innerHTML = '';
   myLibrary.forEach(function (book,index){ 
+     // Render each book by calling the displayBook function
     displayBook(book,index)
   });
-
 };
 
 function removeBook (index) {
