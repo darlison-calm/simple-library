@@ -1,4 +1,8 @@
-const myLibrary = []
+const coraline = new Book('Coraline', 'Neil Gaiman', 210, true)
+const sandman = new Book('Absolute Sandman', 'Neil Gaiman', 328)
+const metaphorphosis = new Book('The Metamorphosis' , 'Franz Kafka', 70, true)
+
+const myLibrary = [coraline, sandman, metaphorphosis]
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -41,7 +45,7 @@ function displayBook(book, index) {
   bookCard.classList.add("book-card");
  
   const title = document.createElement("p");
-  title.textContent = `"${book.title}"`
+  title.textContent = book.title
   title.classList.add("book-title")
   
   const author = document.createElement("p");
