@@ -1,23 +1,45 @@
-const coraline = new Book('Coraline', 'Neil Gaiman', 210, true)
-const sandman = new Book('Absolute Sandman', 'Neil Gaiman', 328)
-const metaphorphosis = new Book('The Metamorphosis' , 'Franz Kafka', 70, true)
-
-const myLibrary = [coraline, sandman, metaphorphosis]
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-
-  this.toggleRead = function(){
-    this.read = !this.read
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  
+  toggleRead() {
+    this.read = !this.read;
   }
 }
+const {coraline, sandman, metaphorphosis} = (function(){
+  const coraline = new Book('Coraline', 'Neil Gaiman', 210, true)
+  const sandman = new Book('Absolute Sandman', 'Neil Gaiman', 328)
+  const metaphorphosis = new Book('The Metamorphosis' , 'Franz Kafka', 70, true)
+  
+  return {
+    sandman, coraline, metaphorphosis
+  };
+})();
 
-function addBookToLibrary(book) {
-  myLibrary.push(book);
+class Library {
+  constructor(){
+    this.books = [coraline, sandman, metaphorphosis];
+  }
+  
+  addBook(book){
+    this.books.push(book);
+  }
+
+  removeBook(index){
+    this.books.splice(index, 1);
+  }
+
+  getBooks(){
+    return this.books;
+  }
+
 }
+
+const myLibrary = new Library();
 
 // User interface
 const formPopup = document.getElementById("form-popup");
@@ -91,7 +113,7 @@ function displayBook(book, index) {
 userInputBook.addEventListener("submit", (e) =>{
   e.preventDefault();
   const book = getBookFromInput()
-  addBookToLibrary(book)
+  myLibrary.addBook(book)
   displayLibrary()
   userInputBook.reset();
   closeForm()
@@ -109,14 +131,14 @@ function getBookFromInput() {
 // Render the entire library of books
 function displayLibrary(){
   booksContainer.innerHTML = '';
-  myLibrary.forEach(function (book,index){ 
+  myLibrary.getBooks().forEach(function (book,index){ 
      // Render each book by calling the displayBook function
     displayBook(book,index)
   });
 };
 
 function removeBook (index) {
-  myLibrary.splice(index, 1)
+  myLibrary.removeBook(index, 1)
   displayLibrary()
 }
 
